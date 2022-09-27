@@ -20,3 +20,5 @@ SpringBootJDBCApp => @ComponentScan => Player Controller @RestController[Bean] =
 
 
 PlayerDAO.getAllPlayers() =>Communicate with the Database using JDBC Template=>  @Autowired JDBC Template => Querying, RowMapping [Player Model] DAO=>
+
+https://drive.google.com/file/d/17oghBGETMLB6HeFLVZiI1QQfSXEpor2R/view?usp=sharing

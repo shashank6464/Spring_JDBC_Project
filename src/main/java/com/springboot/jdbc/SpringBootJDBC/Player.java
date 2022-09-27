@@ -4,8 +4,10 @@ import java.util.Date;
 import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.NamedQuery;
 
-@Entity               // ROW Mapping
+@Entity  // ROW Mapping (create database/schema)
+@NamedQuery(name="get_all_players", query ="SELECT p from Player p")
 @Table(name="Player") // give the table name
 public class Player {
     @Id
