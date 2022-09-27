@@ -13,7 +13,7 @@ public class PlayerController {
     @Autowired
     PlayerDAO obj = new PlayerDAO();
 
-    @GetMapping("/playersInfo")
+    @GetMapping("/players")
     public List<Player> getPlayerData(){
         return obj.getAllPlayers();
     }
