@@ -6,6 +6,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.util.Arrays;
+import java.util.Date;
+
 
 @SpringBootApplication
 public class SpringBootJdbcApplication implements CommandLineRunner {
@@ -15,7 +17,12 @@ public class SpringBootJdbcApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
+		System.out.println("---------GET Players INFO ----------");
 		System.out.println(dao.getAllPlayers());
+		System.out.println("----------GET PLAYER BY ID ----------");
+		System.out.println(dao.getPlayerbyId(2));
+		System.out.println("--------INSERT A PLAYER -------------");
+		System.out.println(dao.insertPlayer(new Player(4,"Raju",35,"USA", new Date(System.currentTimeMillis()), 5)));
 	}
 
 
