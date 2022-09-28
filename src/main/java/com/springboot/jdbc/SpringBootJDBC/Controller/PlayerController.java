@@ -1,12 +1,11 @@
 package com.springboot.jdbc.SpringBootJDBC.Controller;
 
 import com.springboot.jdbc.SpringBootJDBC.Player;
-import com.springboot.jdbc.SpringBootJDBC.PlayerDAO;
+import com.springboot.jdbc.SpringBootJDBC.Repository.PlayerDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Arrays;
 import java.util.List;
 
 @RestController

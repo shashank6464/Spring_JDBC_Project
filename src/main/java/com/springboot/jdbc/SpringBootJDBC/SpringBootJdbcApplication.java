@@ -39,7 +39,7 @@ public class SpringBootJdbcApplication implements CommandLineRunner {
 		// -------------CRUD without DATABASE QUERY ---------
 
 		//CREATE
-		repo.insertPlayer(new Player("Raju",35,"USA", Date.valueOf("2000-04-10"), 1));
+		repo.insertPlayer(new Player("Rohan",35,"USA", Date.valueOf("2000-04-10"), 1));
 		repo.insertPlayer(new Player("Alice",30,"IND", Date.valueOf("2000-06-16"), 2));
 
 		//READ
