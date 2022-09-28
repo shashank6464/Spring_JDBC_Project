@@ -11,7 +11,8 @@ import javax.persistence.NamedQuery;
 @Table(name="Player") // give the table name
 public class Player {
     @Id
-    @GeneratedValue
+   // @GeneratedValue
+    @Column(name="id")
     private int ID; // auto generated column name on new row insertion
 
     @Column(name="Name")
