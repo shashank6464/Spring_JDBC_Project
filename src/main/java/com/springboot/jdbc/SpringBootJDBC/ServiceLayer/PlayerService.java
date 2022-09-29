@@ -1,6 +1,7 @@
 package com.springboot.jdbc.SpringBootJDBC.ServiceLayer;
 
 
+import com.springboot.jdbc.SpringBootJDBC.ErrorResponse.PlayerNotFoundException;
 import com.springboot.jdbc.SpringBootJDBC.Player;
 import com.springboot.jdbc.SpringBootJDBC.Repository.PlayerRepository;
 import com.springboot.jdbc.SpringBootJDBC.Repository.PlayerSpringDataRepository;
@@ -10,7 +11,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.ReflectionUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import javax.transaction.Transactional;
 import java.lang.reflect.Field;
+import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -38,7 +41,8 @@ public class PlayerService {
 
         if(tempPlayer.isPresent()) p = tempPlayer.get();
         else{
-            throw new RuntimeException("Player with id:"+id+"not found");
+           // throw new RuntimeException("Player with id:"+id+"not found");
+            throw new PlayerNotFoundException("Player with id : "+id+" not found ");
         }
         return p;
 
@@ -56,6 +60,7 @@ public class PlayerService {
 
 
         if(tempPlayer.isEmpty()) throw new RuntimeException("Player with id:"+id+"not found");
+      // if(tempPlayer.isEmpty()) throw new PlayerNotFoundException("Player with id:"+id+"not found");
 
         return repo.save(player);
 
@@ -72,14 +77,38 @@ public class PlayerService {
                 // findField-> finds the field of an object (class, key (attribute)) => returns field object
                 Field field = ReflectionUtils.findField(Player.class, key);
                 ReflectionUtils.makeAccessible(field); // make the private variables in use (toggles)
-                ReflectionUtils.setField(field, tempPlayer.get(), value); // set the field with the updated/ patched data
+                if(key=="dob") ReflectionUtils.setField(field, tempPlayer.get(), Date.valueOf((String) value));
+                else ReflectionUtils.setField(field, tempPlayer.get(), value); // set the field with the updated/patched data
+
             });
         }
         else{
             throw new RuntimeException("Player with id : "+id+" not found ");
+          //throw new PlayerNotFoundException("Player with id : "+id+" not found ");
         }
         return repo.save(tempPlayer.get());
     }
 
+    //partial update (using queries/entity)
+    @Transactional
+    public void updateNationality(int id, String nationality){
+        Optional<Player> tempPlayer = repo.findById(id);
+
+        if(tempPlayer.isEmpty()) throw new RuntimeException("Player with id : "+id+" not found ");
+      // if(tempPlayer.isEmpty()) throw new PlayerNotFoundException("Player with id : "+id+" not found ");
+
+        repo.updateNationality(id, nationality);
+    }
+
+    //delete operation
+    public void deletePlayer(int id){
+        Optional<Player> tempPlayer = repo.findById(id);
+
+       // if(tempPlayer.isEmpty()) throw new RuntimeException("Player with id : "+id+" not found ");
+          if(tempPlayer.isEmpty()) throw new PlayerNotFoundException("Player with id : "+id+" not found ");
+
+        repo.delete(tempPlayer.get());
+
+    }
 
 }
