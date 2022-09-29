@@ -16,5 +16,8 @@ public interface PlayerSpringDataRepository extends JpaRepository<Player, Intege
     @Query("UPDATE Player p SET p.nationality = :nationality WHERE p.id =:id")
     void updateNationality(@Param("id") int id, @Param("nationality") String nationality);
 
+    @Modifying
+    @Query("UPDATE Player p SET p.age = :age, p.nationality = :nationality WHERE p.id =:id")
+    void updateAgeAndNationality(@Param("id") int id,@Param("age") int age, @Param("nationality") String nationality);
 
 }
